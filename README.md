@@ -173,3 +173,43 @@ This project demonstrates the development of a custom Transformer-based Small La
 **Project:** Spam Detection Using a Small Language Model (SLM)  
 **Developer:** Pannuru Navya Sree  
 **Department:** CSE – Artificial Intelligence and Machine Learning
+## 14. Complete Project Workflow
+
+### Step 1: Data Collection
+Collect labelled text messages containing Ham and Spam samples.
+
+### Step 2: Data Preprocessing
+- Load the CSV dataset.
+- Inspect and clean the text data.
+- Prepare labels for binary classification.
+
+### Step 3: Tokenization
+Convert text into numerical token IDs and attention masks.
+
+### Step 4: Model Architecture
+Build a custom Transformer-based SLM using:
+- Token Embeddings
+- Rotary Positional Embeddings
+- Grouped Query Attention
+- RMSNorm
+- SwiGLU
+- Transformer Blocks
+
+### Step 5: Model Training
+Train the model using PyTorch and save the trained weights.
+
+### Step 6: Model Evaluation
+Evaluate using accuracy, precision, recall, F1-score and confusion matrix.
+
+### Step 7: Hugging Face Hosting
+Upload the trained model and dataset:
+- Model: https://huggingface.co/Pannuru/Spam-Detection-SLM
+- Dataset: https://huggingface.co/datasets/Pannuru/Spam-Detection-Dataset
+
+### Step 8: Ollama Integration (Pending)
+
+The trained PyTorch classification checkpoint is not directly compatible with Ollama. A compatible model format and architecture would need to be established before integration.
+
+### Step 9: Chat Demo (Pending)
+
+The planned chat demo will allow users to enter a message and receive a Ham or Spam prediction. This will be implemented after selecting a compatible deployment approach.
