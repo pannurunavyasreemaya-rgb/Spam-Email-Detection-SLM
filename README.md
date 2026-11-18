@@ -1,23 +1,22 @@
-# Spam Detection Using a Small Language Model (SLM)
+# Spam Email Detection Using DistilBERT
 
 ## 1. Project Overview
 
-Spam Detection Using a Small Language Model (SLM) is a deep learning project that classifies text messages or emails into two categories:
+Spam Email Detection Using DistilBERT is a Natural Language Processing (NLP) project that classifies email messages into two categories:
 
-- **Ham:** Genuine or legitimate messages.
-- **Spam:** Unwanted, promotional, or potentially fraudulent messages.
+- **HAM (0):** Legitimate email messages.
+- **SPAM (1):** Unwanted or suspicious email messages.
 
-The project implements a custom Transformer-based architecture to perform binary text classification.
+The project uses a fine-tuned DistilBERT transformer model to understand email text and predict whether a message is spam or legitimate.
 
 ## 2. Project Objectives
 
-- Develop a Small Language Model for spam detection.
-- Understand Transformer architecture and its components.
-- Preprocess and prepare text data for training.
-- Train and evaluate the model using a labelled dataset.
+- Develop an intelligent spam email classification system.
+- Use transformer-based NLP for text classification.
+- Identify spam and legitimate email messages.
+- Evaluate the model using standard machine learning metrics.
 - Host the trained model and dataset on Hugging Face.
-- Maintain the complete source code on GitHub.
-- Explore deployment and chatbot integration using Ollama.
+- Develop a chat-style demonstration for users.
 
 ## 3. Technologies Used
 
@@ -26,237 +25,192 @@ The project implements a custom Transformer-based architecture to perform binary
 | Python | Programming language |
 | Google Colab | Model development and training |
 | PyTorch | Deep learning framework |
-| Pandas | Dataset handling |
-| NumPy | Numerical operations |
-| Scikit-learn | Data preprocessing and evaluation |
-| Hugging Face | Model and dataset hosting |
+| Hugging Face Transformers | Pretrained transformer model |
+| DistilBERT | Text classification architecture |
+| Scikit-learn | Evaluation metrics |
+| Pandas | Dataset processing |
 | GitHub | Source code management |
-| Ollama | Planned local chat integration |
+| Hugging Face Hub | Model and dataset hosting |
+| Ollama | Planned local chat demonstration |
 
-## 4. Dataset
+## 4. Dataset Collection
 
-The project uses a labelled spam detection dataset containing text samples classified into Ham and Spam categories.
+The project uses the **Enron Spam Dataset** from Hugging Face.
 
-The dataset is divided into:
+Dataset source: https://huggingface.co/datasets/SetFit/enron_spam
 
-- `TRAIN.csv` – Training data
-- `VALIDATE.csv` – Validation data
-- `TEST.csv` – Testing data
+The dataset contains email text and corresponding labels.
 
-**Hugging Face Dataset:**  
-https://huggingface.co/datasets/Pannuru/Spam-Detection-Dataset
+Label mapping:
 
-## 5. Data Preprocessing
+- 0 = HAM
+- 1 = SPAM
 
-The text data is prepared for model training through the following steps:
+## 5. Dataset Preparation
 
-1. Load the dataset.
-2. Inspect the text and labels.
-3. Convert text into tokens using a tokenizer.
-4. Convert tokens into numerical input IDs.
-5. Generate attention masks.
-6. Prepare training, validation, and testing data.
+The dataset was loaded using the Hugging Face Datasets library.
 
-## 6. Model Architecture
+The project selected:
+- 8,000 email messages for training.
+- 2,000 email messages for evaluation.
 
-This project uses a custom Transformer-based Small Language Model.
+The notebook also contains code to create separate training, validation, and testing CSV files.
 
-### Model Configuration
+Dataset repository:
+
+https://huggingface.co/datasets/Pannuru/spam-email-dataset
+
+## 6. Data Preprocessing
+
+The following preprocessing steps were performed:
+
+1. Load the email dataset.
+2. Convert labels into numerical values.
+3. Extract email text and labels.
+4. Tokenize email messages using the DistilBERT tokenizer.
+5. Apply truncation.
+6. Set the maximum sequence length to 128 tokens.
+7. Convert the processed data into model-compatible inputs.
+
+## 7. Model Architecture
+
+The project uses **DistilBERT**, a transformer-based language model derived from BERT.
+
+The model is fine-tuned for binary sequence classification.
+
+Model configuration:
 
 | Parameter | Value |
-|---|---:|
-| Embedding Dimension | 128 |
-| Attention Heads | 4 |
-| Key-Value Groups | 2 |
-| Transformer Layers | 2 |
-| Feed Forward Dimension | 256 |
-| Output Classes | 2 |
-| Normalization | RMSNorm |
+|---|---|
+| Base model | distilbert-base-uncased |
+| Number of classes | 2 |
+| Maximum sequence length | 128 |
+| Training epochs | 2 |
+| Training batch size | 16 |
+| Evaluation batch size | 32 |
+| Learning rate | 2e-5 |
+| Optimizer | Trainer default configuration |
 
-### Main Components
+## 8. Model Training
 
-- Token Embedding
-- Rotary Positional Embedding (RoPE)
-- Grouped Query Attention (GQA)
-- RMS Normalization
-- SwiGLU Feed Forward Network
-- Transformer Blocks
-- Classification Layer
+The model was trained using Google Colab with GPU acceleration.
 
-The final classification layer predicts whether the input text belongs to the Ham or Spam category.
+Hugging Face Trainer was used to manage the training process and evaluation.
 
-## 7. Model Training
+The model learns patterns from the email messages and their corresponding labels.
 
-The model is implemented and trained using PyTorch in Google Colab.
+After training, the model and tokenizer were saved using:
 
-The training workflow includes:
+```python
+trainer.save_model("/content/final_spam_model")
+tokenizer.save_pretrained("/content/final_spam_model")
+```
 
-1. Loading the prepared training data.
-2. Initializing the Transformer model.
-3. Passing tokenized inputs and attention masks.
-4. Calculating classification loss.
-5. Updating model parameters through backpropagation.
-6. Monitoring performance using validation data.
-7. Saving the trained model weights.
+## 9. Model Evaluation
 
-## 8. Model Evaluation
-
-The trained model should be evaluated using the test dataset.
-
-The following evaluation metrics are used:
+The model was evaluated using the following metrics:
 
 - Accuracy
 - Precision
 - Recall
 - F1-score
-- Confusion Matrix
+- Evaluation loss
 
-Actual evaluation results will be added after the final test evaluation.
+### Recorded evaluation results
 
-## 9. Hugging Face Model Repository
+| Metric | Result |
+|---|---:|
+| Accuracy | 98.45% |
+| Precision | 98.90% |
+| Recall | 98.02% |
+| F1-score | 98.46% |
+| Evaluation loss | 0.0682 |
 
-The trained model files are hosted on Hugging Face.
+These values are from the later training run recorded in the Colab notebook. They represent the notebook's evaluation output, not an independent external benchmark.
 
-**Model Repository:**  
-https://huggingface.co/Pannuru/Spam-Detection-SLM
+## 10. Prediction System
 
-Important files include:
+The trained model accepts an email message as input and predicts its category.
 
-- `config.json`
-- `spam_slm_model.pth`
+Example:
 
-## 10. GitHub Repository Structure
+**Input:**
 
-```text
-Spam-Email-Detection-SLM/
-│
-├── Untitled3.ipynb
-├── modeling_spam.py
-├── requirements.txt
-└── README.md
-```
+Congratulations! You won a free prize. Click here to claim now!
 
-## 11. Installation
+**Expected classification:**
 
-Clone the repository:
+SPAM
 
-```bash
-git clone https://github.com/pannurunavysreemaya-rgb/Spam-Email-Detection-SLM.git
-```
+Another example:
 
-Move into the project folder:
+**Input:**
 
-```bash
-cd Spam-Email-Detection-SLM
-```
+Please find attached the meeting schedule for tomorrow.
 
-Install the dependencies:
+**Expected classification:**
 
-```bash
-pip install -r requirements.txt
-```
+HAM
 
-## 12. Future Enhancements
+The prediction system also displays HAM and SPAM probability scores.
 
-- Develop a user-friendly interface for spam detection.
-- Improve classification performance using further experiments.
-- Support different types of text messages and emails.
-- Explore local model interaction through Ollama, subject to model compatibility.
-- Deploy the application for practical use.
+## 11. Spam Indicator Explanation
 
-## 13. Conclusion
+The project includes a keyword-based explanation feature.
 
-This project demonstrates the development of a custom Transformer-based Small Language Model for spam detection. It covers dataset preparation, model architecture, training, evaluation, and model hosting. The project provides practical experience in applying deep learning and Natural Language Processing to text classification.
+It checks for predefined indicators such as:
 
----
+- Prize and rewards
+- Urgency
+- Money offers
+- Suspicious links
+- Promotional language
 
-**Project:** Spam Detection Using a Small Language Model (SLM)  
-**Developer:** Pannuru Navya Sree  
-**Department:** CSE – Artificial Intelligence and Machine Learning
-## 14. Complete Project Workflow
+These indicators provide additional clues but do not represent the model's actual internal reasoning.
 
-### Step 1: Data Collection
-Collect labelled text messages containing Ham and Spam samples.
+## 12. Hugging Face Model Repository
 
-### Step 2: Data Preprocessing
-- Load the CSV dataset.
-- Inspect and clean the text data.
-- Prepare labels for binary classification.
+The trained model is hosted on Hugging Face:
 
-### Step 3: Tokenization
-Convert text into numerical token IDs and attention masks.
+https://huggingface.co/Pannuru/spam-mail-detection
 
-### Step 4: Model Architecture
-Build a custom Transformer-based SLM using:
-- Token Embeddings
-- Rotary Positional Embeddings
-- Grouped Query Attention
-- RMSNorm
-- SwiGLU
-- Transformer Blocks
+The dataset is hosted at:
 
-### Step 5: Model Training
-Train the model using PyTorch and save the trained weights.
+https://huggingface.co/datasets/Pannuru/spam-email-dataset
 
-### Step 6: Model Evaluation
-Evaluate using accuracy, precision, recall, F1-score and confusion matrix.
+## 13. Ollama Chat Demonstration
 
-### Step 7: Hugging Face Hosting
-Upload the trained model and dataset:
-- Model: https://huggingface.co/Pannuru/Spam-Detection-SLM
-- Dataset: https://huggingface.co/datasets/Pannuru/Spam-Detection-Dataset
+Ollama is being explored for a local chat-style demonstration.
 
-### Step 8: Ollama Integration (Pending)
+Important deployment distinction: the fine-tuned DistilBERT sequence classifier is not directly an Ollama chat-generating model. A separate Python inference interface can call the classifier, while an Ollama language model can provide a conversational interface if integrated.
 
-The trained PyTorch classification checkpoint is not directly compatible with Ollama. A compatible model format and architecture would need to be established before integration.
+The final demonstration should clearly identify which model performs the actual spam classification.
 
-### Step 9: Chat Demo (Pending)
+## 14. Limitations
 
-The planned chat demo will allow users to enter a message and receive a Ham or Spam prediction. This will be implemented after selecting a compatible deployment approach.
-## 15. Running the Ollama Chat Demo
+- The model is trained on the selected Enron email dataset.
+- Performance on unrelated real-world email sources may differ.
+- Long messages are truncated to 128 tokens.
+- Keyword-based explanations are not causal explanations.
+- Evaluation results depend on the dataset split and experimental setup.
 
-### Prerequisites
-- Python installed
-- Ollama installed on Windows
-- Qwen 2.5 0.5B model downloaded
+## 15. Future Enhancements
 
-### Step 1: Download Ollama
+- Improve generalization using additional email datasets.
+- Test performance on independent real-world email samples.
+- Add a professional chat interface.
+- Develop a local deployment workflow.
+- Explore integration with an Ollama-based conversational interface.
+- Perform detailed statistical analysis and error analysis.
 
-Download Ollama from:
-https://ollama.com/download/windows
+## 16. Conclusion
 
-### Step 2: Download the Chat Model
+This project demonstrates the application of transformer-based NLP for spam email classification. By fine-tuning DistilBERT, the system learns to distinguish spam and legitimate email messages. The project combines dataset preparation, model training, evaluation, prediction, and model hosting into an end-to-end workflow.
 
-Open PowerShell and execute:
+## 17. Project Repository
 
-```bash
-ollama pull qwen2.5:0.5b
-```
+GitHub: https://github.com/pannurunavysreemaya-rgb/Spam-Email-Detection-SLM
 
-### Step 3: Install Python Dependency
+Hugging Face Model: https://huggingface.co/Pannuru/spam-mail-detection
 
-```bash
-python -m pip install ollama
-```
-
-### Step 4: Run the Chat Demo
-
-Navigate to the project folder:
-
-```bash
-cd D:\Ollama
-```
-
-Run:
-
-```bash
-python ollama_chat_demo.py
-```
-
-### Step 5: Test the Chat
-
-Enter a message or email when prompted. The Ollama-powered assistant will analyze its content and explain whether it appears suspicious or legitimate.
-
-Type `exit` to stop the chat.
-
-**Note:** This is a conversational demonstration using Qwen 2.5 0.5B through Ollama. It is separate from the custom-trained PyTorch spam classification model (`spam_slm_model.pth`).
+Hugging Face Dataset: https://huggingface.co/datasets/Pannuru/spam-email-dataset
