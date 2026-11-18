@@ -1,48 +1,55 @@
 # Spam Email Detection Using a Custom Small Language Model (SLM)
 
 ## 1. Project Overview
+
 This project develops a custom Small Language Model (SLM) using Transformer architecture to classify messages as **Spam** or **Ham (Not Spam)**.
 
-Unlike traditional machine learning approaches, this project implements a custom Transformer-based architecture with Grouped Query Attention (GQA), RMS Normalization, and Feed Forward Networks.
+The model uses a custom Qwen-inspired architecture with Grouped Query Attention (GQA), RMS Normalization, Rotary Positional Embeddings (RoPE), and SwiGLU Feed Forward Networks.
 
-The trained model is integrated with Ollama for an interactive chat demonstration.
+The trained model is saved as a PyTorch checkpoint and hosted on Hugging Face.
 
 ## 2. Objectives
+
 - Develop a custom Transformer-based SLM.
 - Detect spam and legitimate messages.
-- Implement tokenization and vocabulary creation.
-- Train and evaluate the custom model.
-- Integrate the trained model into an interactive demonstration.
+- Implement text tokenization.
+- Train a lightweight classification model.
+- Evaluate model performance.
+- Develop an interactive spam detection demonstration.
 
 ## 3. Technologies Used
+
 - Python
 - Google Colab
 - PyTorch
 - Pandas
 - NumPy
 - Scikit-learn
-- Ollama
+- Hugging Face
 - GitHub
+- Ollama (planned demonstration integration)
 
 ## 4. Project Workflow
+
 1. Dataset Collection
 2. Data Preprocessing
 3. Text Tokenization
-4. Vocabulary Creation
-5. Custom SLM Architecture
-6. Model Training
-7. Model Evaluation
-8. Ollama Integration
-9. Interactive Chat Demonstration
+4. Custom SLM Architecture
+5. Model Training
+6. Model Evaluation
+7. Hugging Face Model Hosting
+8. GitHub Source Code Hosting
+9. Interactive Demonstration
 
 ## 5. Custom SLM Architecture
 
-The model contains the following components:
+The model contains:
 
 - Token Embedding
 - RMS Normalization
 - Grouped Query Attention (GQA)
-- Feed Forward Network
+- Rotary Positional Embeddings (RoPE)
+- SwiGLU Feed Forward Network
 - Transformer Blocks
 - Final RMS Normalization
 - Classification Layer
@@ -51,59 +58,65 @@ The model contains the following components:
 
 | Parameter | Value |
 |---|---:|
-| Vocabulary Size | 76,408 |
+| Vocabulary Size | 151,669 |
 | Embedding Dimension | 128 |
 | Attention Heads | 4 |
 | KV Groups | 2 |
 | Transformer Layers | 2 |
 | Feed Forward Dimension | 256 |
 | Number of Classes | 2 |
-| Model Parameters | 10,078,082 |
 
 ## 6. Classification Categories
 
-- **Spam:** Unwanted, promotional, suspicious, or potentially fraudulent messages.
-- **Ham:** Normal and legitimate messages.
+- **Spam (1):** Unwanted, promotional, suspicious, or potentially fraudulent messages.
+- **Ham (0):** Normal and legitimate messages.
 
 ## 7. Model Files
 
 - `Spam_Detection_SLM.ipynb` – Model development and training notebook.
 - `modeling_spam.py` – Custom model architecture.
 - `spam_slm_model.pth` – Trained model weights.
-- `ollama_chat_demo.py` – Interactive Ollama demonstration.
+- `ollama_chat_demo.py` – Interactive demonstration (to be completed).
 - `requirements.txt` – Python dependencies.
+- `config.json` – Model configuration.
 
-## 8. Ollama Integration
+## 8. Hugging Face Integration
 
-Ollama is used to demonstrate the model through an interactive chat interface.
+The trained model and tokenizer are hosted on Hugging Face.
 
-The integration workflow includes preparing a compatible model format, configuring Ollama, and testing spam and ham messages.
+**Model Repository:**  
+https://huggingface.co/Pannuru/Spam-Detection-SLM
 
-Note: The PyTorch checkpoint and the Ollama model are separate artifacts. The Ollama integration must use a compatible model format or a documented inference bridge.
+The repository contains the trained PyTorch checkpoint, model configuration, README, and tokenizer files.
 
-## 9. Expected Output
+## 9. Ollama Integration
+
+The PyTorch classification checkpoint is not directly compatible with Ollama as a generative chat model.
+
+An interactive demonstration will use a compatible inference approach or a separate supported Ollama model connected to the spam classifier.
+
+## 10. Expected Output
 
 The system classifies user-provided messages into:
 
 - Spam
 - Ham (Not Spam)
 
-The interactive demonstration allows users to enter messages and view the classification response.
+The demonstration allows users to enter messages and view the classification result.
 
-## 10. Future Enhancements
+## 11. Future Enhancements
 
-- Improve classification accuracy.
+- Improve classification performance.
 - Support multiple languages.
 - Improve detection of slang and spelling variations.
 - Develop a user-friendly web application.
 - Expand the training dataset.
 
-## 11. Conclusion
+## 12. Conclusion
 
-This project demonstrates the development of a custom Small Language Model for spam detection using Transformer architecture. It combines model development, training, text classification, and an interactive demonstration to explore the practical application of SLMs.
+This project demonstrates the development of a custom Small Language Model for spam detection using Transformer architecture. It combines tokenization, model development, training, and text classification to explore the practical application of lightweight language models.
 
-## 12. Author
+## 13. Author
 
-**Pannuru Navya Sree**
-
+**Pannuru Navya Sree**  
 B.Tech – CSE (AI & ML)
