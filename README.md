@@ -213,3 +213,50 @@ The trained PyTorch classification checkpoint is not directly compatible with Ol
 ### Step 9: Chat Demo (Pending)
 
 The planned chat demo will allow users to enter a message and receive a Ham or Spam prediction. This will be implemented after selecting a compatible deployment approach.
+## 15. Running the Ollama Chat Demo
+
+### Prerequisites
+- Python installed
+- Ollama installed on Windows
+- Qwen 2.5 0.5B model downloaded
+
+### Step 1: Download Ollama
+
+Download Ollama from:
+https://ollama.com/download/windows
+
+### Step 2: Download the Chat Model
+
+Open PowerShell and execute:
+
+```bash
+ollama pull qwen2.5:0.5b
+```
+
+### Step 3: Install Python Dependency
+
+```bash
+python -m pip install ollama
+```
+
+### Step 4: Run the Chat Demo
+
+Navigate to the project folder:
+
+```bash
+cd D:\Ollama
+```
+
+Run:
+
+```bash
+python ollama_chat_demo.py
+```
+
+### Step 5: Test the Chat
+
+Enter a message or email when prompted. The Ollama-powered assistant will analyze its content and explain whether it appears suspicious or legitimate.
+
+Type `exit` to stop the chat.
+
+**Note:** This is a conversational demonstration using Qwen 2.5 0.5B through Ollama. It is separate from the custom-trained PyTorch spam classification model (`spam_slm_model.pth`).
