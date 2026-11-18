@@ -1,4 +1,4 @@
-
+ollama
 pandas
 numpy
 scikit-learn
