@@ -1,0 +1,17 @@
+{
+    "project": "Spam Detection SLM",
+    "dataset": "SMS Spam Collection",
+    "task": "Binary Text Classification",
+    "classes": {
+        "0": "Ham",
+        "1": "Spam"
+    },
+    "total_records": 13172,
+    "train_records": 8000,
+    "validation_records": 3172,
+    "test_records": 2000,
+    "columns": [
+        "text",
+        "label"
+    ]
+}
