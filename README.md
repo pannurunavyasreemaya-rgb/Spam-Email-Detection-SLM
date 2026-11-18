@@ -142,3 +142,18 @@ The comparison model was also checked using 5 Ham and 5 Spam samples selected fr
 
 ### Ollama Chat Demo
 Ollama with Qwen 2.5 0.5B is used to demonstrate conversational explanations. The custom `.pth` classifier checkpoint is not directly imported into Ollama.
+## 14. Dataset Information
+
+The project uses a labelled email dataset containing 28,544 records.
+
+| Category | Label | Records |
+|---|---:|---:|
+| Ham | 0 | 13,998 |
+| Spam | 1 | 14,546 |
+| Total | - | 28,544 |
+
+The dataset contains two main columns:
+- text: Email content
+- label: Spam or Ham classification
+
+The dataset is divided into training and testing sets using an 80:20 split for baseline evaluation.
