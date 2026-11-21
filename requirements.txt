@@ -1,11 +1,8 @@
-
-ollama
+torch
+transformers
+scikit-learn
 pandas
 numpy
-scikit-learn
-matplotlib
-seaborn
-transformers
-torch
-datasets
+ollama
+gguf
 huggingface_hub
